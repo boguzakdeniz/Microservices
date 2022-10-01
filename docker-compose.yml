@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  s_api_gateway:
+    container_name: c_api_gateway
+    image: oguzakdeniz/apigateway
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
+    ports:
+      - 80:80
+    networks:
+       - micro_net
+       - int_net
+
+  s_contact_api:
+    container_name: c_contact_api
+    image: oguzakdeniz/contactapi
+    build:
+        context: .
+        dockerfile: Services/ContactAPI/ContactAPI/Dockerfile
+    ports:
+         - 9000:9000
+    networks:
+        - int_net
+
+  s_reservation_api:
+    container_name: c_reservation_api
+    image: oguzakdeniz/reservationapi
+    build:
+        context: .
+        dockerfile: Services/ResAPI/ReservationAPI/Dockerfile
+    ports:
+         - 7000:7000
+    networks:
+        - int_net
+
+
+networks:
+  int_net:
+    driver: overlay
+    internal: true
+  micro_net:
+    driver: bridge

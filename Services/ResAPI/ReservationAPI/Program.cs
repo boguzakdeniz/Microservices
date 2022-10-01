@@ -20,6 +20,7 @@ namespace ReservationAPI
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://*:7000");
                     webBuilder.UseStartup<Startup>();
                 });
     }
